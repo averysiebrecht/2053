@@ -1,0 +1,150 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>CodePen - 2051-with pop up</title>
+  
+  
+  
+  
+<style>
+#timerdiv{
+  background:white;
+  height:20px;
+  width: 100px;
+}
+
+#score{
+  background:white;
+  height:20px;
+  width: 10px;
+}
+
+h3 {text-align: center;}
+
+body {
+  background-position: center;
+  background-image: url("https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/1200px-Flag_of_France.svg.png") 
+    
+    
+ 
+}
+
+.correct {
+  background: green;
+}
+
+
+.incorrect{
+  background: red;
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+</style>
+
+  
+  
+  
+  
+
+</head>
+
+<body translate="no" >
+  <h3>Avery's French Quiz  </h3>
+
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  Score: <span id="score">0</span> 
+  <div id="timerdiv">
+  Timer: <span id="theTimer">0</span>
+</div>
+ 
+  
+  </button>
+</div>
+
+<ol>
+  <li>parler <input  data-correct="to talk"/></li>
+  <li>marcher <input  data-correct="to walk"/></li>
+  <li>jouer <input data-correct="to play"/></li>
+  <li>parler <input  data-correct="to talk"/></li>
+  <li>manger <input  data-correct="to eat"/></li>
+  <li>faire <input  data-correct="to make"/></li>
+  <li>aller <input  data-correct="to go"/></li>
+  <li>soif <input  data-correct="thirsty"/></li>
+  <li>faim <input  data-correct="hungry"/></li>
+  <li>chaud <input  data-correct="hot"/></li>
+ 
+</ol>  
+
+<div class="popup" onclick="myFunction()">Click me!
+  <span class="popuptext" id="myPopup">Popup text...</span>
+</div>
+
+
+<audio id="tryagain_snd" controls>
+  <source src="https://averysiebrecht.github.io/2052/New%20Recording%2012.m4a" type="audio/mpeg">
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+  
+      <script id="rendered-js" >
+console.clear();
+
+
+$("input").change(onChange)
+
+function onChange(evt){
+  let correct = $(this).data("correct");
+  let response = $(this).val();
+  console.log(correct,response);
+  if(correct == response){
+   $(this).removeClass('incorrect').addClass('correct');
+  } else{
+    tryagain.play();
+    
+    $(this).removeClass('correct').addClass('incorrect');
+  }
+}
+
+let tryagain = document.getElementById("tryagain_snd");
+let timer = 0;
+
+function addSec(){
+  timer = timer + 1;
+  $("#theTimer").text(timer);
+}
+addSec();
+setInterval(addSec,1000);
+
+
+function playTryAgain(){
+  tryagain.play();
+}
+
+$("#tryagain_btn").click(playTryAgain)
+    </script>
+
+  
+
+</body>
+
+</html>
+ 
